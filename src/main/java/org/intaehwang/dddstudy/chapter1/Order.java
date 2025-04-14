@@ -10,10 +10,15 @@ public class Order {
     }
 
     public void changeShippingInfo(ShippingInfo newShippingInfo) {
-        if (!state.isShippingChangeable()) {
+        if (!isShippingChangeable()) {
             throw new IllegalStateException("can't change shipping in " + state);
         }
 
         this.shippingInfo = newShippingInfo;
+    }
+
+    private boolean isShippingChangeable() {
+        return state == OrderState.PAYMENT_WAITING ||
+                state == OrderState.PREPARING;
     }
 }
