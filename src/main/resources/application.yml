@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: ddd-study
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test-ddd
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: true
