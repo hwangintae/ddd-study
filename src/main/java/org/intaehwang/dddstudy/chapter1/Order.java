@@ -9,8 +9,9 @@ public class Order {
     private OrderState state;
     private ShippingInfo shippingInfo;
 
-    public Order(List<OrderLine> orderLines) {
+    public Order(List<OrderLine> orderLines, ShippingInfo shippingInfo) {
         setOrderLines(orderLines);
+        setShippingInfo(shippingInfo);
     }
 
     public Order(OrderState state, ShippingInfo shippingInfo) {
@@ -39,6 +40,13 @@ public class Order {
         verifyAtLestOneOrMoreOrderLines(orderLines);
         this.orderLines = orderLines;
         calculateTotalAmounts();
+    }
+
+    private void setShippingInfo(ShippingInfo shippingInfo) {
+        if (shippingInfo == null) {
+            throw new IllegalArgumentException("no ShippingInfo");
+        }
+        this.shippingInfo = shippingInfo;
     }
 
     private void verifyAtLestOneOrMoreOrderLines(List<OrderLine> orderLines) {
