@@ -20,20 +20,22 @@ public class Order {
     }
 
     public void changeShippingInfo(ShippingInfo newShippingInfo) {
-        if (!isShippingChangeable()) {
-            throw new IllegalStateException("can't change shipping in " + state);
-        }
-
-        this.shippingInfo = newShippingInfo;
+        verifyNotYetShipped();
+        setShippingInfo(newShippingInfo);
     }
 
-    private boolean isShippingChangeable() {
-        return state == OrderState.PAYMENT_WAITING ||
-                state == OrderState.PREPARING;
-    }
+//    private boolean isShippingChangeable() {
+//        return state == OrderState.PAYMENT_WAITING ||
+//                state == OrderState.PREPARING;
+//    }
 
     public void changeShipped() {}
-    public void cancel() {}
+
+    public void cancel() {
+        verifyNotYetShipped();
+        this.state = OrderState.CANCELED;
+    }
+
     public void completePayment() {}
 
     private void setOrderLines(List<OrderLine> orderLines) {
@@ -52,6 +54,12 @@ public class Order {
     private void verifyAtLestOneOrMoreOrderLines(List<OrderLine> orderLines) {
         if (orderLines == null || orderLines.isEmpty()) {
             throw new IllegalArgumentException("no OrderLine");
+        }
+    }
+
+    private void verifyNotYetShipped() {
+        if (state != OrderState.PAYMENT_WAITING && state != OrderState.PREPARING) {
+            throw new IllegalStateException("already shipped");
         }
     }
 
