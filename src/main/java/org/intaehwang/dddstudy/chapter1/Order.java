@@ -3,6 +3,7 @@ package org.intaehwang.dddstudy.chapter1;
 import java.util.List;
 
 public class Order {
+    private OrderNo id;
     private List<OrderLine> orderLines;
     private Money totalAmounts;
 
@@ -19,6 +20,10 @@ public class Order {
     public Order(OrderState state, ShippingInfo shippingInfo) {
         this.state = state;
         this.shippingInfo = new ShippingInfo();
+    }
+
+    public OrderNo getId() {
+        return this.id;
     }
 
     public void changeShippingInfo(ShippingInfo newShippingInfo) {
