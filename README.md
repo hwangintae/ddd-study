@@ -1,9 +1,9 @@
 # [도메인 주도 개발 시작하기](https://product.kyobobook.co.kr/detail/S000001810495)
 ### DDD 핵심 개념 정리부터 구현까지
 
-> 아래의 내용은 책을 읽고 느낀점과 정리한 내용에 대해 작성하였습니다. 
+> 아래의 내용은 책을 읽고 느낀점과 정리한 내용에 대해 작성하였습니다.
 
-1. [도메인 모델 시작하기](https://github.com/hwangintae/ddd-study/pull/1)
+## [chatper1 도메인 모델 시작하기](https://github.com/hwangintae/ddd-study/pull/1)
 
 도메인을 어떻게 하면 잘 설계할 수 있을까?
 
