@@ -6,9 +6,9 @@ import org.intaehwang.dddstudy.chapter1.OrderState;
 import org.intaehwang.dddstudy.chapter1.ShippingInfo;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 public class CancelOrderService {
 
+    @Transactional
     public void cancelOrder(String orderId) {
         Order order = findOrderById(orderId);
 
