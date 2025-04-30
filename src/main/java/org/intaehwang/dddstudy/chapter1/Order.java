@@ -1,10 +1,12 @@
 package org.intaehwang.dddstudy.chapter1;
 
+import org.intaehwang.dddstudy.chapter3.OrderLines;
+
 import java.util.List;
 
 public class Order {
     private OrderNo id;
-    private List<OrderLine> orderLines;
+    private OrderLines orderLines;
     private Money totalAmounts;
 
     private OrderState state;
@@ -40,10 +42,9 @@ public class Order {
 
     public void completePayment() {}
 
-    private void setOrderLines(List<OrderLine> orderLines) {
-        verifyAtLestOneOrMoreOrderLines(orderLines);
-        this.orderLines = orderLines;
-        calculateTotalAmounts();
+    private void setOrderLines(List<OrderLine> newOrderLines) {
+        orderLines.changeOrderLines(newOrderLines);
+        this.totalAmounts = orderLines.getTotalAmounts();
     }
 
     private void setShippingInfo(ShippingInfo shippingInfo) {
@@ -53,23 +54,10 @@ public class Order {
         this.shippingInfo = shippingInfo;
     }
 
-    private void verifyAtLestOneOrMoreOrderLines(List<OrderLine> orderLines) {
-        if (orderLines == null || orderLines.isEmpty()) {
-            throw new IllegalArgumentException("no OrderLine");
-        }
-    }
-
     private void verifyNotYetShipped() {
         if (state != OrderState.PAYMENT_WAITING && state != OrderState.PREPARING) {
             throw new IllegalStateException("already shipped");
         }
-    }
-
-    private void calculateTotalAmounts() {
-        int sum = orderLines.stream()
-                .mapToInt(OrderLine::getAmounts)
-                .sum();
-        this.totalAmounts = new Money(sum);
     }
 
     @Override
