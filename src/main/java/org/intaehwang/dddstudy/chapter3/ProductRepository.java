@@ -8,5 +8,7 @@ public interface ProductRepository {
 
     List<Product> findByCategoryId(CategoryId id, int page, int size);
 
-     int countsByCategoryId(CategoryId id);
+    int countsByCategoryId(CategoryId id);
+
+    void save(Product product);
 }
