@@ -71,3 +71,24 @@ stateDiagram-v2
 
 과격하게 말하면 **domain 관점**에서 **application은 중요한게 아니고**
 **domain 간의 상호관계**에 중점을 두고 **domain을 이용하여 어떻게 service를 할지를 고민**해야한다.
+
+## [chapter3 aggregate](https://github.com/hwangintae/ddd-study/pull/2)
+아직까지 domain server와 application service의 차이점에 대해 명확하게 설명을 하지 못하겠다.
+
+이번 chaper에서 aggregate를 이용하여 다른 aggregate를 생성하는 **3.6 aggregate를 팩토리로 사용하기** 를 읽고 짐작해보면
+
+어떤 시나리오가 있을 때 이 시나리오의 domain 객체를 aggregate라 하고 여기서 domain의 행위를 domain service라 하고
+application service는 domain의 상태를 변경하는? 역할을 하는거 같다.
+
+예를들어 상품 주문서 작성은 application service에서 상품 주문서 작성 이라는 함수를 만들고, 상품 주문서를 작성하는데 필요한
+domain들의 행위(이런 조건에서는 상품의 상태를 변경할 수 없다와 같은)는 domain과 domain service에서 하는거 같다.
+
+책에 구체적으로 나와있지 않아 답답하다. chapter6, chapter7에 해당 내용이 나오는데 빨리 읽고 싶다.
+
+
+다른 aggregate 끼리는 ID를 통한 참조를 강조하고 있다. 누군가는 필드로 참조하고 룰을 지켜가며 잘 사용하면 되지 않나요?
+라고 할 수 있다.
+
+그런데 내 생각은 다르다. 사람이 실수할 수 있는 부분은 적극적으로 차단해야한다고 생각한다.
+
+그게 다른 동료일 수 도 있지만 미래의 내가 실수할 가능성이 가장 크기 때문이다.
