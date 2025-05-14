@@ -16,13 +16,11 @@ public class OrderLine {
     @Embedded
     private ProductId productId;
 
-    @Convert(converter = MoneyConverter.class)
     @Column(name = "price")
     private Money price;
 
     private int quantity;
 
-    @Convert(converter = MoneyConverter.class)
     @Column(name = "amounts")
     private Money amounts;
 

@@ -22,7 +22,6 @@ public class Order {
     @ElementCollection(fetch = FetchType.LAZY)
     private List<OrderLine> orderLines;
 
-    @Convert(converter = MoneyConverter.class)
     @Column(name = "totalAmounts")
     private Money totalAmounts;
 
