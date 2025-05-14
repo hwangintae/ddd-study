@@ -1,18 +1,37 @@
 package org.intaehwang.dddstudy.chapter1;
 
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.intaehwang.dddstudy.chapter3.OrderLines;
+import org.intaehwang.dddstudy.chapter4.MoneyConverter;
 
 import java.util.List;
 
+@Entity
+@Table(name = "purchase_order")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Access(AccessType.FIELD)
 public class Order {
+
+    @EmbeddedId
     private OrderNo id;
-    private OrderLines orderLines;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    private List<OrderLine> orderLines;
+
+    @Convert(converter = MoneyConverter.class)
+    @Column(name = "totalAmounts")
     private Money totalAmounts;
 
+    @Column(name = "state")
+    @Enumerated(EnumType.STRING)
     private OrderState state;
-    private ShippingInfo shippingInfo;
 
-    private String orderNumber;
+    @Embedded
+    private ShippingInfo shippingInfo;
 
     public Order(List<OrderLine> orderLines, ShippingInfo shippingInfo) {
         setOrderLines(orderLines);
@@ -42,9 +61,22 @@ public class Order {
 
     public void completePayment() {}
 
-    private void setOrderLines(List<OrderLine> newOrderLines) {
-        orderLines.changeOrderLines(newOrderLines);
-        this.totalAmounts = orderLines.getTotalAmounts();
+    private void setOrderLines(List<OrderLine> orderLines) {
+        verifyAtLestOneOrMoreOrderLines(orderLines);
+
+        this.orderLines = orderLines;
+        calculateTotalAmounts();
+    }
+    private void verifyAtLestOneOrMoreOrderLines(List<OrderLine> orderLines) {
+        if (orderLines == null || orderLines.isEmpty()) {
+            throw new IllegalArgumentException("no OrderLines");
+        }
+    }
+
+    public void calculateTotalAmounts() {
+        this.totalAmounts = new Money(orderLines.stream()
+                .mapToInt(OrderLine::getAmounts)
+                .sum());
     }
 
     private void setShippingInfo(ShippingInfo shippingInfo) {
@@ -67,9 +99,9 @@ public class Order {
         if (obj.getClass() != this.getClass()) return false;
 
         Order other = (Order) obj;
-        if (this.orderNumber == null) return false;
+        if (this.id == null) return false;
 
-        return this.orderNumber.equals(other.orderNumber);
+        return this.id.equals(other.id);
     }
 
     @Override
@@ -77,7 +109,7 @@ public class Order {
         final int prime = 31;
         int result = 1;
 
-        result = prime * result + ((this.orderNumber == null) ? 0 : this.orderNumber.hashCode());
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         return result;
     }
 }
