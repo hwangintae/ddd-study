@@ -1,13 +1,11 @@
 package org.intaehwang.dddstudy.chapter1;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.intaehwang.dddstudy.chapter3.ProductId;
-import org.intaehwang.dddstudy.chapter4.MoneyConverter;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

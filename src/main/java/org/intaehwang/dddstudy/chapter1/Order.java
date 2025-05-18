@@ -2,11 +2,7 @@ package org.intaehwang.dddstudy.chapter1;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.intaehwang.dddstudy.chapter3.OrderLines;
-import org.intaehwang.dddstudy.chapter4.MoneyConverter;
 
 import java.util.List;
 
@@ -20,6 +16,8 @@ public class Order {
     private OrderNo id;
 
     @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "order_line", joinColumns = @JoinColumn(name = "order_number"))
+    @OrderColumn(name = "line_idx")
     private List<OrderLine> orderLines;
 
     @Column(name = "totalAmounts")

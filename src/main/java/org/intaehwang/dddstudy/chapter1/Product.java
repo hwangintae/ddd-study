@@ -1,7 +1,6 @@
 package org.intaehwang.dddstudy.chapter1;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.intaehwang.dddstudy.chapter3.CategoryId;
 import org.intaehwang.dddstudy.chapter3.ProductId;
