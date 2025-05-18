@@ -3,12 +3,14 @@ package org.intaehwang.dddstudy.chapter3;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import lombok.RequiredArgsConstructor;
 import org.intaehwang.dddstudy.chapter1.Product;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class JpaProductRepository implements ProductRepository {
 
     @PersistenceContext
@@ -30,5 +32,10 @@ public class JpaProductRepository implements ProductRepository {
     @Override
     public int countsByCategoryId(CategoryId id) {
         return 0;
+    }
+
+    @Override
+    public void save(Product product) {
+        em.persist(product);
     }
 }
