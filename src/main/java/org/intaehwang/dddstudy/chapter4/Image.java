@@ -6,17 +6,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "image_type")
-@Table(name = "image")
+@Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class Image {
+public class Image {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id")
-    private Long id;
+    private String imageType;
 
     @Column(name = "image_path")
     private String path;
@@ -30,15 +24,11 @@ public abstract class Image {
         this.uploadTime = new Date();
     }
 
-    protected String getPath() {
+    public String getPath() {
         return path;
     }
 
-    public Date getUploadTime() {
-        return uploadTime;
+    public boolean hasThumbnail() {
+        return imageType.equals("II");
     }
-
-    public abstract String getURL();
-    public abstract boolean hasThumbnail();
-    public abstract String getThumbnailURL();
 }
