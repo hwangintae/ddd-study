@@ -12,7 +12,14 @@ spring:
     properties:
       hibernate:
         show_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
+        jdbc:
+          batch_size: 50
+        order_updates: true
+        order_inserts: true
+  sql:
+    init:
+      mode: always
   h2:
     console:
       enabled: true
@@ -20,3 +27,13 @@ spring:
       settings:
         trace: false
         web-allow-others: true
+
+
+
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.hibernate.engine.jdbc.batch.internal.BatchingBatch: debug
+    org.hibernate.engine.jdbc.batch.internal.AbstractBatchImpl: TRACE

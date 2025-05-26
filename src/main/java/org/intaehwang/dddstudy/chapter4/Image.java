@@ -9,7 +9,6 @@ import java.util.Date;
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Image {
-
     private String imageType;
 
     @Column(name = "image_path")
@@ -30,5 +29,11 @@ public class Image {
 
     public boolean hasThumbnail() {
         return imageType.equals("II");
+    }
+
+    public Image(String imageType, String path, Date uploadTime) {
+        this.imageType = imageType;
+        this.path = path;
+        this.uploadTime = uploadTime;
     }
 }
