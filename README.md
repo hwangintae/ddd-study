@@ -84,3 +84,21 @@ application service는 domain의 상태를 변경하는? 역할을 하는거 같
 domain들의 행위(이런 조건에서는 상품의 상태를 변경할 수 없다와 같은)는 domain과 domain service에서 하는거 같다.
 
 책에 구체적으로 나와있지 않아 답답하다. chapter6, chapter7에 해당 내용이 나오는데 빨리 읽고 싶다.
+
+## [chatper4 repository와 model 구현](https://github.com/hwangintae/ddd-study/pull/3)
+
+이번 chapter를 읽으면서 가장 중요하다고 느낀 부분은 aggregate와 관련된 정보를 어떻게 로딩할 것인가 이다.
+평소 JPA를 사용할때 어떠한 연관관계를 걸지않고, FK를 이용한 조회를 사용하였다. 그래서 좀 힘들었다.
+
+그리고 JPA를 사용할 때 JPA를 domain으로 사용하는지 아니면 따로 POJO 객체로 domain을 만드는지에 대한 이야기가
+개발자 단톡방에서 종종 나온다.
+- JPA는 표준이기 때문에 domain으로 사용해야 한다.
+- spring을 그냥 POJO로 생각해라
+
+등등 말이 오고간다.
+
+나는 Repository의 경우에만 interface를 사용하여 DIP를 지키는 것을 선호 한다. 왜나하면
+findBy000으로 인한 service 코드가 길어지는게 싫기 때문이다.
+
+그냥 식별자로 찾는데 굳이 findById, findByEmail 이렇게 할 필요가 없다고 생각한다.
+findBy(UserId id), findBy(Email email) 등으로 시그니처가 다르기만 하면 충분히 구분되어 조회할 수 있기 때문이다.
