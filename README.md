@@ -102,3 +102,18 @@ findBy000으로 인한 service 코드가 길어지는게 싫기 때문이다.
 
 그냥 식별자로 찾는데 굳이 findById, findByEmail 이렇게 할 필요가 없다고 생각한다.
 findBy(UserId id), findBy(Email email) 등으로 시그니처가 다르기만 하면 충분히 구분되어 조회할 수 있기 때문이다.
+
+## [chapter6 application service와 presentation](https://github.com/hwangintae/ddd-study/pull/4)
+
+> [!note]
+> chapter5는 JPA에 대한 내용이고, chapter6의 일부는 DDD와 관련 없는 내용이라 생략함
+
+이번 chapter에서는 application service에 대해 설명하고 있다. 본격적으로 chapter7에서 domain service에 대해 설명하기 위해
+나 처럼 DDD에 잘 모르는 사람을 위해 한번 설명하는 chapter라 생각한다.
+
+가장 인상 깊은 부분은 validation 하는 부분이다. 지금까지 validation을 하라고 하면 바로 Exception으로 throw 하곤 했다.
+그런데 책에서는 **매번 사용자가 어디가 틀렸는지 확인을 해야하기 때문에 한번에 알고 싶어 할 수 있다.** 라는 사용자 관점의 validation에 대해
+언급하였다. 요즘은 로그인 시 브라우저에 id, pw가 저장되어 틀릴 걱정이 많이 없고, 때에 따라서는 회원가입 시 이름, 전화번호, 주소까지
+자동완성 기능이 있다. 그렇기 때문에 **한번에 validation check를 하고 throw 해야지** 라는 생각을 못했던거 같다.
+
+설계를 어떻게 interface를 만들까 말까 하는것도 중요하지만 **사용자가 어디서 불편해 할 수 있을까?**를 먼저 고민하는 습관을 가져야겠다.
