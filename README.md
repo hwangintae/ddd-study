@@ -136,3 +136,10 @@ findBy(UserId id), findBy(Email email) 등으로 시그니처가 다르기만 �
 그렇기 때문에 application service는 유즈케이스로 domain과 domain service를 이용해 사용자에게 기능을 제공하는 역할을 한다.
 이때 가장 중요한 역할은 transaction을 이용하여 데이터의 일관성을 보장하는 역할을 한다.
 
+## [chapter8 aggregate transaction 관리](https://github.com/hwangintae/ddd-study/pull/6)
+동시성 문제를 해결하기 위해 선점 방식(비관락)과 비선점 방식(낙관락)을 설명하는 내용이다.
+
+동시성 문제란 공유자원을 수정할 때 발생하는 문제인데 대표적으로 DB락을 이용해서 해결할 수 있다.
+
+해당 chapter도 도메인 주도 설계 보단 application 개발을 할때 back-end 개발자가 고려해야 하는 문제에 대해서 설명하는
+chapter라고 생각한다.
