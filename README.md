@@ -117,3 +117,22 @@ findBy(UserId id), findBy(Email email) 등으로 시그니처가 다르기만 �
 자동완성 기능이 있다. 그렇기 때문에 **한번에 validation check를 하고 throw 해야지** 라는 생각을 못했던거 같다.
 
 설계를 어떻게 interface를 만들까 말까 하는것도 중요하지만 **사용자가 어디서 불편해 할 수 있을까?**를 먼저 고민하는 습관을 가져야겠다.
+
+## [chapter7 domain service](https://github.com/hwangintae/ddd-study/pull/5)
+
+드디어 domain service와 application service의 차이에 대해 알게된 chapter다.
+
+먼저 domain service는 aggregate와 관련이 있다. 책 내용 중에
+- 해당 로직이 aggregate의 상태를 변경하거나
+- aggregate의 상태 값을 계산하는지 확인
+라고 되어 있다.
+
+즉, 여러 aggregate를 사용하여 특정 aggregate가 변경이 된다면 하나의 aggregate의 기능으로 추가하기 애매한 부분이 있어
+따로 domain service로 분리하여 사용한다.
+
+그렇다면 application service는 뭐라고 할 수 있을까?
+
+레이어드 아키텍처에서 보면 사용자는 presentation을 통해 접근을 한다. application은 presentation과 domain을 연결해주는 역할을 한다.
+그렇기 때문에 application service는 유즈케이스로 domain과 domain service를 이용해 사용자에게 기능을 제공하는 역할을 한다.
+이때 가장 중요한 역할은 transaction을 이용하여 데이터의 일관성을 보장하는 역할을 한다.
+
