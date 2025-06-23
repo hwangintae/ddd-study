@@ -1,6 +1,11 @@
 package org.intaehwang.dddstudy.chapter10;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class EventEntry {
+    @Id
     private Long id;
     private String type;
     private String contentType;
