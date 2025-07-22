@@ -143,3 +143,58 @@ findBy(UserId id), findBy(Email email) 등으로 시그니처가 다르기만 �
 
 해당 chapter도 도메인 주도 설계 보단 application 개발을 할때 back-end 개발자가 고려해야 하는 문제에 대해서 설명하는
 chapter라고 생각한다.
+
+## [chapter9 domain model과 bounded context](https://github.com/hwangintae/ddd-study/pull/7)
+드디어 bounded context가 무엇인지 이해가 됐다. 특정 상황에 따라 model이 의미하는 바가 다를 수 있는데 이걸 한 곳에서 표현하기가 어렵다.
+이 때 bounded context는 용어를 기준으로 구분하여 model의 의미를 부여한다.
+```mermaid
+---
+title : bounded context는 각자 구현하는 하위 domain에 맞는 model을 갖는다.
+---
+graph TD
+	subgraph 회원BC
+		AggRoot_Member
+	end
+	
+	subgraph 카탈로그BC
+		AggRoot_Product
+		AggRoot_Category
+		AggRoot_Product --> AggRoot_Category
+	end
+
+	subgraph 주문BC
+		AggRoot_Orderer
+	end
+	
+	subgraph 재고BC
+		AggRoot__Product
+	end
+```
+예를 들어 황인태라는 domain model이 있는데 회사원 황인태, 아들 황인태, 남자친구 황인태는 각각 다르다. 만약 이를 구현한다고 하면
+(물론 황인태라고 객체를 만들진 않겠지만) 회사 컨텍스트, 가족 컨텍스트, 연인 컨텍스트에서 각각 황인태라는 model을 가지고 있을 것이다.
+
+이젠 DDD에 대해 기초는 알게 된거 같다.
+
+## [chapter10 event](https://github.com/hwangintae/ddd-study/pull/8)
+event는 transaction의 경계를 명확하게 구분할 수 있는 중요한 방식이다.
+
+commit 이전과 이후를 나누어 특정 작업을 진행할 수 있다. 
+그리고 transaction의 구분으로 domain의 책임 또한 명확하게 구분된다.
+
+event의 관점은 요청보단 선언에 가깝다고 생각한다.
+
+'A의 작업이 끝났으니 리뷰 부탁드립니다.' 보단
+
+'A 작업 끝났음.'이다. 즉, 다음 과정에 대해 알지 못해도 된다.
+
+물론 특정 작업에서 문제가 발생했을 경우 순서에 맞게 rollback을 해야한다면.
+예) 재고 복구 후 주문을 취소하고 최종적으로 환불을 진행한다.
+
+등 event 꼬임을 방지하기 위한 노력이 필요하다.
+
+## [chapter11 CQRS](https://github.com/hwangintae/ddd-study/pull/9)
+CQRS에 대한 간단한 개념을 설명하는 chapter다.
+
+model 관리 관점에서 query를 위한 model을 따로 만들었을 때 기존 command model에 영향을 주지 않고
+
+성능 향상을 할 수 있다는 점에서 큰 매력으로 다가온다.
